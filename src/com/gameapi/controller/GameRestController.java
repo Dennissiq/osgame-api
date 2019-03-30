@@ -36,7 +36,7 @@ public class GameRestController {
 	@RequestMapping(method = RequestMethod.GET, value = "rest/game/")
 	public @ResponseBody String gameName() {
 		
-	return "Round Robin 1 Quantum NP";
+	return "Round Robin 1 Quantum P";
 	
 	}
 	
@@ -65,6 +65,26 @@ public class GameRestController {
 //			gameMode = "Round Robin 2 Quantums NP";
 //		}
 		
+		
+		System.out.println("Type: " + randomInt + " - Scheduler: " + gameMode);	
+		
+	return gameMode;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "rest/game/random/2")
+	public @ResponseBody String randomGameLimited() {
+		
+		double randomDouble = Math.random();
+		randomDouble = randomDouble * 2;
+		int randomInt = (int) randomDouble;
+		String gameMode;
+				
+		if (randomInt == 0) {
+			gameMode = "FCFS";
+		} else{
+			gameMode = "SJF";
+		}
+
 		
 		System.out.println("Type: " + randomInt + " - Scheduler: " + gameMode);	
 		
