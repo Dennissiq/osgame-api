@@ -33,10 +33,38 @@ public class GameRestController {
 //		}
 //	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "rest/game/")
-	public @ResponseBody String gameName() {
+	@RequestMapping(method = RequestMethod.GET, value = "rest/game/fcfs")
+	public @ResponseBody String gameFcfs() {
+		
+	return "FCFS";
+	
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "rest/game/sjf")
+	public @ResponseBody String gameSjf() {
+		
+	return "SJF";
+	
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "rest/game/priority")
+	public @ResponseBody String gamePriority() {
+		
+	return "por Prioridade";
+	
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "rest/game/roundrobin/preemptive")
+	public @ResponseBody String gameRrp() {
 		
 	return "Round Robin 1 Quantum P";
+	
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "rest/game/roundrobin/nonpreemptive")
+	public @ResponseBody String gameRrnp() {
+		
+	return "Round Robin 1 Quantum NP";
 	
 	}
 	
