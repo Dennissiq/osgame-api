@@ -27,7 +27,7 @@
 	</bean>
 	<bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://localhost/pipocadb"></property>
+		<property name="url" value="jdbc:mysql://localhost/curso_so"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="root"></property>
 	</bean>

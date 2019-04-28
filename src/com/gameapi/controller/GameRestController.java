@@ -1,18 +1,21 @@
 package com.gameapi.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import com.google.gson.Gson;
 
-import com.gameapi.model.entity.Game;
+import com.gameapi.model.entity.QuestionModel;
 import com.gameapi.model.service.GameService;
+import com.gameapi.model.service.QuestionService;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
@@ -20,6 +23,11 @@ public class GameRestController {
 
 	@Autowired
 	GameService gameService;
+	
+	@Autowired 
+	QuestionService questionService;
+	
+	Gson gson = new Gson();
 
 //	@RequestMapping(method = RequestMethod.GET, value = "rest/filmes")
 //	public @ResponseBody List<Game> listarFilmes() {
@@ -33,10 +41,24 @@ public class GameRestController {
 //		}
 //	}
 	
+//	@RequestMapping(method = RequestMethod.GET, value = "rest/game/fcfs", produces = MediaType.APPLICATION_JSON_VALUE)
+//	ResponseEntity<String> gameFcfs() {
+////	String fcfs = "FCFS";
+//	
+////	return "FCFS";
+//	String jsonFCFS = "{'name': 'FCFS'}";
+//	
+//	return ResponseEntity.ok(gson.toJson(jsonFCFS));
+//	
+//	}
+	
 	@RequestMapping(method = RequestMethod.GET, value = "rest/game/fcfs")
 	public @ResponseBody String gameFcfs() {
-		
+//	String fcfs = "FCFS";
+	
 	return "FCFS";
+	
+//	return new ResponseEntity(fcfs, HttpStatus.OK);
 	
 	}
 	
@@ -118,6 +140,35 @@ public class GameRestController {
 		
 	return gameMode;
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/rest/quiz/questions")
+	public ResponseEntity<List<QuestionModel>> loadQuestions(){
+		List<QuestionModel> listQuestion= null;
+		
+		try {
+//			the parameters 0 and 1 are fixed, use the @PathVariable to set this parameters and in the path value use {type}
+			listQuestion = questionService.loadQuestions(0, 1);
+			return new ResponseEntity<List<QuestionModel>>(listQuestion, HttpStatus.OK);
+		} 
+		catch (Exception e ) {
+			e.printStackTrace();
+			return new ResponseEntity <List<QuestionModel>>(listQuestion, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	
+//	@RequestMapping(method = RequestMethod.GET, value = "rest/filmes/filtro/{chave}")
+//	public ResponseEntity<List<Game>> listarFilme(@PathVariable("chave") String chave) {
+//		List<Game> lista = null;
+//	
+//		try {
+//			lista = filmeService.listarFilmes(chave);			
+//			return new ResponseEntity<List<Game>>(lista, HttpStatus.OK);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//			return new ResponseEntity<List<Game>>(lista, HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//	}
 
 //	@RequestMapping(method = RequestMethod.POST, value = "rest/filmes")
 //	public ResponseEntity<Game> criarFilme(@RequestBody Game filme) {

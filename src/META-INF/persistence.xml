@@ -9,6 +9,8 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 		<provider>org.hibernate.ejb.HibernatePersistence</provider> 
 		<!-- entidades mapeadas -->
 		<class>com.gameapi.model.entity.Game</class>
+		<class>com.gameapi.model.entity.QuestionModel</class>
+		
 		<properties>
 			<!-- dados da conexao estao no spring-context -->
 
