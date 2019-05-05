@@ -141,7 +141,7 @@ public class GameRestController {
 	return gameMode;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/rest/quiz/questions")
+	@RequestMapping(method = RequestMethod.GET, value = "/rest/quiz/questions", produces= MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<QuestionModel>> loadQuestions(){
 		List<QuestionModel> listQuestion= null;
 		
@@ -149,6 +149,7 @@ public class GameRestController {
 //			the parameters 0 and 1 are fixed, use the @PathVariable to set this parameters and in the path value use {type}
 			listQuestion = questionService.loadQuestions(0, 1);
 			return new ResponseEntity<List<QuestionModel>>(listQuestion, HttpStatus.OK);
+			
 		} 
 		catch (Exception e ) {
 			e.printStackTrace();

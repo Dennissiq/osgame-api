@@ -47,11 +47,11 @@ public class QuestionDAO {
 		String					jpqlSelect, type;
 		
 		modelArray = new QuestionModelArray[0];
-		type = (arg1 == 0 ? "capitulo" : (arg1 == 1 ? "dificuldade_id" : ""));
-		jpqlSelect = "SELECT enunciado_id FROM enunciado WHERE :type = ? ORDER BY RAND() LIMIT 10";
-		
+		type = (arg1 == 0 ? "cap_theme" : (arg1 == 1 ? "dificult" : ""));
+//		jpqlSelect = "SELECT enunciado_id FROM enunciado WHERE :type = ? ORDER BY RAND() LIMIT 10";
+		jpqlSelect = "SELECT question_id as id, question_text as question FROM QuestionModel WHERE dificult_id = 1 ORDER BY RAND()";
 		Query query = manager.createQuery(jpqlSelect);
-		query.setParameter("type", "%"+type+"%");
+//		query.setParameter("type", "%"+type+"%");
 		
 		List<QuestionModel> result = query.getResultList();
 		
@@ -75,7 +75,7 @@ public class QuestionDAO {
 		
 		qm.setQuestion_id		(id);
 		qm.setQuestion_text		(query.getParameterValue("e.enunciado_text").toString());
-		qm.setDificult			((int) query.getParameterValue("e.dificuldade_id"));
+		qm.setDificult_id		((int) query.getParameterValue("e.dificuldade_id"));
 		qm.setCap_theme			((int) query.getParameterValue("e.capitulo_tema"));
 		qm.setAlternative_id	((int) query.getParameterValue("a.alternativa_id"));
 		qm.setAlternative_text	(query.getParameterValue("a.alternativa_text").toString());

@@ -2,36 +2,63 @@ package com.gameapi.model.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "enunciado")
 public class QuestionModel implements Serializable {
 	
 	@Id
 	@NotNull 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="enunciado_id")
 	private int question_id;
 	
 	@Id
 	@NotNull 
+	@Column (name = "alternativa_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int alternative_id;
-	private int dificult, cap_theme;
-	private String question_text, alternative_text;
+	
+	@NotNull
+	@Column (name = "dificuldade_id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int dificult_id;
+	
+	@NotNull
+	@Column (name = "capitulo_tema")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int cap_theme;
+	
+	@NotNull
+	@Column (name = "enunciado_text")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private String question_text;
+	
+	@NotNull
+	@Column (name = "alternativa_text")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private String alternative_text;
+	
+	@NotNull
+	@Column (name = "resultado")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private boolean result;
 	
-	public QuestionModel(int question_id, String question_text, int dificult, int cap_theme, int alternative_id, String alternative_text, boolean result) {
-		setQuestion_id			(question_id	);
-		setQuestion_text 		(question_text	);
-		setDificult				(dificult		);
-		setCap_theme			(cap_theme		);
-		setAlternative_id		(alternative_id	);
+	public QuestionModel(int question_id, String question_text, int dificult_id, int cap_theme, int alternative_id, String alternative_text, boolean result) {
+		setQuestion_id			(question_id		);
+		setQuestion_text 		(question_text		);
+		setDificult_id			(dificult_id		);
+		setCap_theme			(cap_theme			);
+		setAlternative_id		(alternative_id		);
 		setAlternative_text		(alternative_text	);
-		setResult				(result			);		
+		setResult				(result				);		
 	}
 	
 	public QuestionModel() {
@@ -41,7 +68,7 @@ public class QuestionModel implements Serializable {
 	public QuestionModel(QuestionModel qm) {
 		setQuestion_id			(qm.getQuestion_id()		);
 		setQuestion_text 		(qm.getQuestion_text()		);
-		setDificult				(qm.getDificult()			);
+		setDificult_id			(qm.getDificult_id()			);
 		setCap_theme			(qm.getCap_theme()			);
 		setAlternative_id		(qm.getAlternative_id()		);
 		setAlternative_text		(qm.getAlternative_text()	);
@@ -64,12 +91,12 @@ public class QuestionModel implements Serializable {
 		this.alternative_id = alternative_id;
 	}
 
-	public int getDificult() {
-		return dificult;
+	public int getDificult_id() {
+		return dificult_id;
 	}
 
-	public void setDificult(int dificult) {
-		this.dificult = dificult;
+	public void setDificult_id(int dificult_id) {
+		this.dificult_id = dificult_id;
 	}
 
 	public int getCap_theme() {
@@ -111,7 +138,7 @@ public class QuestionModel implements Serializable {
 		result = prime * result + alternative_id;
 		result = prime * result + ((alternative_text == null) ? 0 : alternative_text.hashCode());
 		result = prime * result + cap_theme;
-		result = prime * result + dificult;
+		result = prime * result + dificult_id;
 		result = prime * result + question_id;
 		result = prime * result + ((question_text == null) ? 0 : question_text.hashCode());
 		result = prime * result + (this.result ? 1231 : 1237);
@@ -136,7 +163,7 @@ public class QuestionModel implements Serializable {
 			return false;
 		if (cap_theme != other.cap_theme)
 			return false;
-		if (dificult != other.dificult)
+		if (dificult_id != other.dificult_id)
 			return false;
 		if (question_id != other.question_id)
 			return false;
