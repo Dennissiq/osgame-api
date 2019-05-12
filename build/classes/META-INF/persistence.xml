@@ -10,7 +10,7 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 		<!-- entidades mapeadas -->
 		<class>com.gameapi.model.entity.Game</class>
 		<class>com.gameapi.model.entity.QuestionModel</class>
-		
+		<class>com.gameapi.model.entity.QuestionModelArray</class>
 		<properties>
 			<!-- dados da conexao estao no spring-context -->
 
