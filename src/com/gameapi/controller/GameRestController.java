@@ -69,10 +69,18 @@ public class GameRestController {
 	
 	}
 	
+	
+	
 	@RequestMapping(method = RequestMethod.GET, value = "rest/game/priority")
 	public @ResponseBody String gamePriority() {
 		
 	return "por Prioridade";
+	
+	}
+	@RequestMapping(method = RequestMethod.GET, value = "rest/game/lottery")
+	public @ResponseBody String gameLottery() {
+		
+	return "por Loteria";
 	
 	}
 	
@@ -140,6 +148,61 @@ public class GameRestController {
 		
 	return gameMode;
 	}
+	
+	
+	@RequestMapping(method = RequestMethod.GET, value = "rest/game/firstFit")
+	public @ResponseBody String gameFirstFit() {
+		
+	return "First Fit";
+	
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "rest/game/nextFit")
+	public @ResponseBody String gameNextFit() {
+		
+	return "Next Fit";
+	
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "rest/game/bestFit")
+	public @ResponseBody String gameBestFit() {
+		
+	return "Best Fit";
+	
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "rest/game/worstFit")
+	public @ResponseBody String gameWorstFit() {
+		
+	return "Worst Fit";
+	
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "rest/game/memory/random")
+	public @ResponseBody String randomMemoryGame() {
+		
+		double randomDouble = Math.random();
+		randomDouble = randomDouble * 5;
+		int randomInt = (int) randomDouble;
+		String gameMode;
+				
+		if (randomInt == 0) {
+			gameMode = "First Fit";
+		} else if(randomInt == 1){
+			gameMode = "Next Fit";
+		}
+		else if (randomInt == 2){
+			gameMode = "Best Fit";
+		} 
+		else  {
+			gameMode = "Worst Fit";
+		}
+		System.out.println("Type: " + randomInt + " - Scheduler: " + gameMode);	
+		
+		return gameMode;
+	}
+	
+	
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/quiz/questions")
 	public ResponseEntity<List<QuestionModel>> loadQuestions(){
