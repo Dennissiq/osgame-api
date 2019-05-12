@@ -141,6 +141,34 @@ public class GameRestController {
 	return gameMode;
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "rest/game/firstFit")
+	public @ResponseBody String gameFirstFit() {
+		
+	return "First Fit";
+	
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "rest/game/nextFit")
+	public @ResponseBody String gameNextFit() {
+		
+	return "Next Fit";
+	
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "rest/game/bestFit")
+	public @ResponseBody String gameBestFit() {
+		
+	return "Best Fit";
+	
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "rest/game/worstFit")
+	public @ResponseBody String gameWorstFit() {
+		
+	return "Worst Fit";
+	
+	}
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/quiz/questions", produces= MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<QuestionModel>> loadQuestions(){
 		List<QuestionModel> listQuestion= null;
