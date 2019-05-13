@@ -188,17 +188,17 @@ public class GameRestController {
 		String gameMode;
 				
 		if (randomInt == 0) {
-			gameMode = "First Fit";
+			gameMode = "firstFit.html";
 		} else if(randomInt == 1){
-			gameMode = "Next Fit";
+			gameMode = "nextFit.html";
 		}
 		else if (randomInt == 2){
-			gameMode = "Best Fit";
+			gameMode = "bestFit.html";
 		} 
 		else  {
-			gameMode = "Worst Fit";
+			gameMode = "worstFit.html";
 		}
-		System.out.println("Type: " + randomInt + " - Scheduler: " + gameMode);	
+		System.out.println("Type: " + randomInt + " - memoryUrl: " + gameMode);	
 		
 		return gameMode;
 	}
