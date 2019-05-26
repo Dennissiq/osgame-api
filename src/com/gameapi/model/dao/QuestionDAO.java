@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.gameapi.model.entity.QuestionModel;
 import com.gameapi.model.entity.QuestionModelArray;
+import com.gameapi.model.entity.AlternativeModel;
 
 //@Repository
 //public class QuestionDAO {
@@ -49,7 +50,14 @@ public class QuestionDAO {
 		modelArray = new QuestionModelArray[0];
 		type = (arg1 == 0 ? "cap_theme" : (arg1 == 1 ? "dificult" : ""));
 //		jpqlSelect = "SELECT enunciado_id FROM enunciado WHERE :type = ? ORDER BY RAND() LIMIT 10";
+		
+//		Perguntas
 		jpqlSelect = "SELECT question_id as id, question_text as question FROM QuestionModel WHERE dificult_id = 1 ORDER BY RAND()";
+		
+		
+//		Alternativas
+//		jpqlSelect = "SELECT question_text, alternative_text, result FROM QuestionModel INNER JOIN AlternativeModel Where question_id = 2 ORDER BY Rand()";
+//		jpqlSelect = "SELECT question_text as question, alternative_text as alternative, result FROM AlternativeModel ORDER BY Rand()";
 		Query query = manager.createQuery(jpqlSelect);
 //		query.setParameter("type", "%"+type+"%");
 		
@@ -78,7 +86,7 @@ public class QuestionDAO {
 		qm.setDificult_id		((int) query.getParameterValue("e.dificuldade_id"));
 		qm.setCap_theme			((int) query.getParameterValue("e.capitulo_tema"));
 		qm.setAlternative_id	((int) query.getParameterValue("a.alternativa_id"));
-		qm.setAlternative_text	(query.getParameterValue("a.alternativa_text").toString());
+//		qm.setAlternative_text	(query.getParameterValue("a.alternativa_text").toString());
 		qm.setResult			((boolean) query.getParameterValue("a.resultado"));
 		
 		List<QuestionModel> result = query.getResultList();

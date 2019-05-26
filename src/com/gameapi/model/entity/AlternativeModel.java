@@ -7,20 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "enunciado")
-public class QuestionModel implements Serializable {
+@Table(name = "alternativa")
+public class AlternativeModel implements Serializable {
 	
-	@Id
-	@NotNull 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="enunciado_id")
-	private int question_id;
 	
 	@Id
 	@NotNull 
@@ -33,10 +26,6 @@ public class QuestionModel implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int dificult_id;
 	
-	@NotNull
-	@Column (name = "capitulo_tema")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int cap_theme;
 	
 	@NotNull
 	@Column (name = "enunciado_text")
@@ -48,48 +37,31 @@ public class QuestionModel implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String alternative_text;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "alternativa_id")
-//	private AlternativeModel alternative;
-	
 	@NotNull
 	@Column (name = "resultado")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private boolean result;
 	
-	public QuestionModel(int question_id, String question_text, int dificult_id, int cap_theme, int alternative_id, AlternativeModel alternative, String alternative_text, boolean result) {
-		setQuestion_id			(question_id		);
+	public AlternativeModel(int question_id, String question_text, int dificult_id, int alternative_id, String alternative_text, boolean result) {
 		setQuestion_text 		(question_text		);
 		setDificult_id			(dificult_id		);
-		setCap_theme			(cap_theme			);
 		setAlternative_id		(alternative_id		);
 		setAlternative_text		(alternative_text	);
-//		setAlternative			(alternative	);
 		setResult				(result				);		
 	}
 	
-	public QuestionModel() {
-		this.question_id = -1;
+	public AlternativeModel() {
+		this.alternative_id = -1;
 	}
 	
-	public QuestionModel(QuestionModel qm) {
-		setQuestion_id			(qm.getQuestion_id()		);
+	public AlternativeModel(AlternativeModel qm) {
 		setQuestion_text 		(qm.getQuestion_text()		);
 		setDificult_id			(qm.getDificult_id()			);
-		setCap_theme			(qm.getCap_theme()			);
 		setAlternative_id		(qm.getAlternative_id()		);
-//		setAlternative			(qm.getAlternative()		);		
 		setAlternative_text		(qm.getAlternative_text()	);
 		setResult				(qm.isResult()				);		
 	}
 
-	public int getQuestion_id() {
-		return question_id;
-	}
-
-	public void setQuestion_id(int question_id) {
-		this.question_id = question_id;
-	}
 
 	public int getAlternative_id() {
 		return alternative_id;
@@ -107,13 +79,7 @@ public class QuestionModel implements Serializable {
 		this.dificult_id = dificult_id;
 	}
 
-	public int getCap_theme() {
-		return cap_theme;
-	}
 
-	public void setCap_theme(int cap_theme) {
-		this.cap_theme = cap_theme;
-	}
 
 	public String getQuestion_text() {
 		return question_text;
@@ -145,9 +111,7 @@ public class QuestionModel implements Serializable {
 		int result = 1;
 		result = prime * result + alternative_id;
 		result = prime * result + ((alternative_text == null) ? 0 : alternative_text.hashCode());
-		result = prime * result + cap_theme;
 		result = prime * result + dificult_id;
-		result = prime * result + question_id;
 		result = prime * result + ((question_text == null) ? 0 : question_text.hashCode());
 		result = prime * result + (this.result ? 1231 : 1237);
 		return result;
@@ -161,7 +125,7 @@ public class QuestionModel implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		QuestionModel other = (QuestionModel) obj;
+		AlternativeModel other = (AlternativeModel) obj;
 		if (alternative_id != other.alternative_id)
 			return false;
 		if (alternative_text == null) {
@@ -169,11 +133,7 @@ public class QuestionModel implements Serializable {
 				return false;
 		} else if (!alternative_text.equals(other.alternative_text))
 			return false;
-		if (cap_theme != other.cap_theme)
-			return false;
 		if (dificult_id != other.dificult_id)
-			return false;
-		if (question_id != other.question_id)
 			return false;
 		if (question_text == null) {
 			if (other.question_text != null)
@@ -184,14 +144,6 @@ public class QuestionModel implements Serializable {
 			return false;
 		return true;
 	}
-
-//	public AlternativeModel getAlternative() {
-//		return alternative;
-//	}
-//
-//	public void setAlternative(AlternativeModel alternative) {
-//		this.alternative = alternative;
-//	}
 
 
 	
