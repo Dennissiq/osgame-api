@@ -175,7 +175,7 @@ public class GameRestController {
             
         } catch (Exception e ) {
             e.printStackTrace();
-            System.out.println("Não é possível proseeguir. O objeto livro é nulo");            return new ResponseEntity<List <AlternativeModel>>(listQuestion, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<List <AlternativeModel>>(listQuestion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 	
