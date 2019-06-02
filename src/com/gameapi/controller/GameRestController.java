@@ -1,5 +1,7 @@
 package com.gameapi.controller;
 
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,95 +9,57 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.google.gson.Gson;
 
-import com.gameapi.model.entity.QuestionModel;
-import com.gameapi.model.service.GameService;
+import com.gameapi.model.entity.AlternativeModel;
 import com.gameapi.model.service.QuestionService;
+import com.gameapi.model.service.AlternativeService;
+import com.google.gson.Gson;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 public class GameRestController {
 
 	@Autowired
-	GameService gameService;
-	
-	@Autowired 
-	QuestionService questionService;
+	private QuestionService questionService;
+	@Autowired
+	private AlternativeService alternativeService;
 	
 	Gson gson = new Gson();
 
-//	@RequestMapping(method = RequestMethod.GET, value = "rest/filmes")
-//	public @ResponseBody List<Game> listarFilmes() {
-//		System.out.println("rest/filmes");
-//		try {
-//			return gameService.listarFilmes();
-//		} catch (IOException e) {
-//
-//			e.printStackTrace();
-//			return new ArrayList<Game>();
-//		}
-//	}
-	
-//	@RequestMapping(method = RequestMethod.GET, value = "rest/game/fcfs", produces = MediaType.APPLICATION_JSON_VALUE)
-//	ResponseEntity<String> gameFcfs() {
-////	String fcfs = "FCFS";
-//	
-////	return "FCFS";
-//	String jsonFCFS = "{'name': 'FCFS'}";
-//	
-//	return ResponseEntity.ok(gson.toJson(jsonFCFS));
-//	
-//	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "rest/game/fcfs")
 	public @ResponseBody String gameFcfs() {
-//	String fcfs = "FCFS";
-	
-	return "FCFS";
-	
-//	return new ResponseEntity(fcfs, HttpStatus.OK);
-	
+		return "FCFS";
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "rest/game/sjf")
 	public @ResponseBody String gameSjf() {
-		
-	return "SJF";
-	
+		return "SJF";
 	}
-	
-	
 	
 	@RequestMapping(method = RequestMethod.GET, value = "rest/game/priority")
 	public @ResponseBody String gamePriority() {
-		
-	return "por Prioridade";
-	
+		return "por Prioridade";
 	}
+	
 	@RequestMapping(method = RequestMethod.GET, value = "rest/game/lottery")
 	public @ResponseBody String gameLottery() {
-		
-	return "por Loteria";
-	
+		return "por Loteria";
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "rest/game/roundrobin/preemptive")
 	public @ResponseBody String gameRrp() {
-		
-	return "Round Robin 1 Quantum P";
-	
+		return "Round Robin 1 Quantum P";
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "rest/game/roundrobin/nonpreemptive")
 	public @ResponseBody String gameRrnp() {
-		
-	return "Round Robin 1 Quantum NP";
-	
+		return "Round Robin 1 Quantum NP";
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "rest/game/random")
@@ -119,14 +83,10 @@ public class GameRestController {
 		} else {
 			gameMode = "Round Robin 1 Quantum P";
 		}
-//		else {
-//			gameMode = "Round Robin 2 Quantums NP";
-//		}
-		
 		
 		System.out.println("Type: " + randomInt + " - Scheduler: " + gameMode);	
 		
-	return gameMode;
+		return gameMode;
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "rest/game/random/2")
@@ -142,43 +102,32 @@ public class GameRestController {
 		} else{
 			gameMode = "SJF";
 		}
-
-		
 		System.out.println("Type: " + randomInt + " - Scheduler: " + gameMode);	
 		
-	return gameMode;
+		return gameMode;
 	}
 	
 
 	@RequestMapping(method = RequestMethod.GET, value = "rest/game/firstFit")
 	public @ResponseBody String gameFirstFit() {
-		
-	return "First Fit";
-	
+		return "First Fit";
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "rest/game/nextFit")
 	public @ResponseBody String gameNextFit() {
-		
-	return "Next Fit";
-	
+		return "Next Fit";
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "rest/game/bestFit")
 	public @ResponseBody String gameBestFit() {
-		
-	return "Best Fit";
-	
+		return "Best Fit";
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "rest/game/worstFit")
 	public @ResponseBody String gameWorstFit() {
-		
-	return "Worst Fit";
-	
+		return "Worst Fit";
 	}
 	
-
 	@RequestMapping(method = RequestMethod.GET, value = "rest/game/memory/random")
 	public @ResponseBody String randomMemoryGame() {
 		
@@ -203,84 +152,45 @@ public class GameRestController {
 		return gameMode;
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/rest/quiz/ids", produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Integer>> mostrarIds(){
+       List<Integer> listQuestion= null;
+        
+        try {
+            listQuestion = questionService.mostrarIds();
+            return new ResponseEntity<List<Integer>>(listQuestion, HttpStatus.OK);
+        } catch (Exception e ) {
+            e.printStackTrace();
+            return new ResponseEntity<List<Integer>>(listQuestion, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/rest/quiz/alternatives/{id}", produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<AlternativeModel>> mostrarAlternativas(@PathVariable("id") int id){
+        List<AlternativeModel> listQuestion = null;
+        
+        try {
+            listQuestion = alternativeService.mostrarAlternativas(id);
+            return new ResponseEntity<List<AlternativeModel>>(listQuestion, HttpStatus.OK);
+            
+        } catch (Exception e ) {
+            e.printStackTrace();
+            System.out.println("Não é possível proseeguir. O objeto livro é nulo");            return new ResponseEntity<List <AlternativeModel>>(listQuestion, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 	
-	
-
-	@RequestMapping(method = RequestMethod.GET, value = "/rest/quiz/questions", produces= MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<QuestionModel>> loadQuestions(){
-		List<QuestionModel> listQuestion= null;
-		
-		try {
-//			the parameters 0 and 1 are fixed, use the @PathVariable to set this parameters and in the path value use {type}
-			listQuestion = questionService.loadQuestions(0, 1);
-			return new ResponseEntity<List<QuestionModel>>(listQuestion, HttpStatus.OK);
-			
-		} 
-		catch (Exception e ) {
-			e.printStackTrace();
-			return new ResponseEntity <List<QuestionModel>>(listQuestion, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
-	
-//	@RequestMapping(method = RequestMethod.GET, value = "rest/filmes/filtro/{chave}")
-//	public ResponseEntity<List<Game>> listarFilme(@PathVariable("chave") String chave) {
-//		List<Game> lista = null;
-//	
-//		try {
-//			lista = filmeService.listarFilmes(chave);			
-//			return new ResponseEntity<List<Game>>(lista, HttpStatus.OK);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//			return new ResponseEntity<List<Game>>(lista, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
-
-//	@RequestMapping(method = RequestMethod.POST, value = "rest/filmes")
-//	public ResponseEntity<Game> criarFilme(@RequestBody Game filme) {
-//		try {
-//			filmeService.inserirFilme(filme);
-//			return new ResponseEntity<Game>(filme, HttpStatus.OK);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//			return new ResponseEntity<Game>(filme, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
-//	
-//	
-//	@RequestMapping(method = RequestMethod.DELETE, value = "rest/filmes")
-//	public ResponseEntity<Game> excluirFilme(@RequestBody Game filme) {
-//		try {
-//			filmeService.excluirFilme(filme);
-//			return new ResponseEntity<Game>(filme, HttpStatus.OK);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//			return new ResponseEntity<Game>(filme, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
-//	
-//	@RequestMapping(method = RequestMethod.PUT, value = "rest/filmes")
-//	public ResponseEntity<Game> atualizarFilme(@RequestBody Game filme) {
-//		try {
-//			filmeService.atualizarFilme(filme);
-//			return new ResponseEntity<Game>(filme, HttpStatus.OK);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//			return new ResponseEntity<Game>(filme, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
-//	
-//	@RequestMapping(method = RequestMethod.GET, value = "rest/filmes/filtro/{chave}")
-//	public ResponseEntity<List<Game>> listarFilme(@PathVariable("chave") String chave) {
-//		List<Game> lista = null;
-//	
-//		try {
-//			lista = filmeService.listarFilmes(chave);			
-//			return new ResponseEntity<List<Game>>(lista, HttpStatus.OK);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//			return new ResponseEntity<List<Game>>(lista, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
+	@RequestMapping(method = RequestMethod.GET, value = "/rest/quiz/correct/{id}", produces= MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<AlternativeModel>> mostrarResposta(@PathVariable("id") int id){
+        List<AlternativeModel> listQuestion = null;
+        
+        try {
+        	listQuestion = alternativeService.mostrarResposta(id);
+            return new ResponseEntity<List<AlternativeModel>>(listQuestion, HttpStatus.OK);
+            
+        } 
+        catch (Exception e ) {
+            e.printStackTrace();
+            return new ResponseEntity<List <AlternativeModel>>(listQuestion, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
